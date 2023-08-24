@@ -121,19 +121,19 @@ void *popBack(List *list) {
 void *popCurrent(List *list) {
   if (list != NULL && list->current != NULL){
     void *data = list->current->data;
-    Node *nodoActual = list->current;
-    if (list->current->prev != NULL){
-      list->current->prev->next = list->current->next;
+    Node *currentNode = list->current;
+    if (currentNode->prev != NULL){
+      currentNode->prev->next = currentNode->next;
     } else {
-      list->tail = list->current->next;
+      list->head = currentNode->next;
     }
-    if (list->current->next != NULL){
-      list->current->next->prev = list->current->prev;
+    if (currentNode->next != NULL){
+      currentNode->next->prev = currentNode->prev;
     } else {
-      list->tail = list->current->prev;
+      list->tail = currentNode->prev;
     }
-    list->current = list->current->next;
-    free(nodoActual);
+    list->current = currentNode->next;
+    free(currentNode);
     return data;
   }
   return NULL;
